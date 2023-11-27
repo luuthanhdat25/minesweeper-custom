@@ -14,6 +14,7 @@ namespace Grid.Tilemap
         private Dictionary<byte, TileSO> _numberCellDictionary = new Dictionary<byte, TileSO>();
         private GameDataSO _gameDataSo;
         private byte[,] _valueMatrix;
+        private int[] _boomIndexArray;
         private bool firstSafe = false;
         //Constants
         private const byte DOWN_VALUE = 0;
@@ -66,6 +67,7 @@ namespace Grid.Tilemap
         {
             int arraySize = _widthCellNumber * _heightCellNumber;
             byte[] boomIndexBools = new byte[arraySize];
+            _boomIndexArray = new int[_boomNumber];
             _valueMatrix = new byte[_widthCellNumber, _heightCellNumber];
             
             // Fisher-Yates Shuffle
@@ -80,13 +82,14 @@ namespace Grid.Tilemap
                     = (boomIndexBools[randomNumber], boomIndexBools[i]);
                 }
             }
-
+            
             //Calculate cell values of matrix
+            int boomIndex = 0;
             for (int i = 0; i < arraySize; i++)
             {
                 if (_boomNumber <= 0) break;
                 if (boomIndexBools[i] != BOOM_VALUE) continue;
-                
+                _boomIndexArray[boomIndex++] = i;
                 int x = i % _widthCellNumber;
                 int y = (i - x) / _widthCellNumber;
                 _valueMatrix[x, y] = BOOM_VALUE;
@@ -144,8 +147,7 @@ namespace Grid.Tilemap
                 FindSafeCellAndSwap(tilePosition);
             }
             else {
-                _tilemap.SetTile(tilePosition, _gameDataSo.BoomDeadCellTile);
-                //End Game
+                ActivateAllBoom(tilePosition);
             }
             
         }
@@ -201,17 +203,14 @@ namespace Grid.Tilemap
         
         private void FindSafeCellAndSwap(Vector3Int tilePosition)
         {
-            for (int y = 0; y < _heightCellNumber; y++)
-            {
-                for (int x = 0; x < _widthCellNumber; x++)
-                {
+            for (int y = 0; y < _heightCellNumber; y++) {
+                for (int x = 0; x < _widthCellNumber; x++) {
                     if (!IsBoom(x, y))
                     {
                         //Switch position to none boom cell
                         //Add boom add plus value to around cell
                         _valueMatrix[x, y] = BOOM_VALUE;
-                        for (int t = x - 1; t <= x + 1; t++)
-                        {
+                        for (int t = x - 1; t <= x + 1; t++) {
                             if (t < 0 || t >= _widthCellNumber) continue;
                             for (int z = y - 1; z <= y + 1; z++)
                             {
@@ -224,11 +223,9 @@ namespace Grid.Tilemap
 
                         //Remove boom and deduct value to around cell
                         _valueMatrix[tilePosition.x, tilePosition.y] = 0;
-                        for (int t = tilePosition.x - 1; t <= tilePosition.x + 1; t++)
-                        {
+                        for (int t = tilePosition.x - 1; t <= tilePosition.x + 1; t++) {
                             if (t < 0 || t >= _widthCellNumber) continue;
-                            for (int z = tilePosition.y - 1; z <= tilePosition.y + 1; z++)
-                            {
+                            for (int z = tilePosition.y - 1; z <= tilePosition.y + 1; z++) {
                                 if (z < 0 || z >= _heightCellNumber) continue;
                                 if (t == tilePosition.x && z == tilePosition.y) continue;
                                 if (_valueMatrix[t, z] == BOOM_VALUE)
@@ -250,6 +247,7 @@ namespace Grid.Tilemap
         {
             Vector3Int tilePosition = GetCellPositionByWorldPosition(worldPosition);
             if (!IsTilePositionInRange(tilePosition)) return;
+            
             if (IsUpTile(tilePosition)) {
                 _tilemap.SetTile(tilePosition, _gameDataSo.FlagCellTile);
             }else if (IsFlagTile(tilePosition)){
@@ -259,5 +257,20 @@ namespace Grid.Tilemap
         
         private bool IsFlagTile(Vector3Int tilePosition) 
             => _tilemap.GetTile(tilePosition) == _gameDataSo.FlagCellTile;
+
+        private void ActivateAllBoom(Vector3Int tilePosition)
+        {
+            Vector3Int vectorTemp = tilePosition;
+            foreach (int index in _boomIndexArray)
+            {
+                int x = index % _widthCellNumber;
+                int y = (index - x) / _widthCellNumber;
+                vectorTemp.Set(x, y, tilePosition.z);
+                _tilemap.SetTile(vectorTemp, _gameDataSo.BoomDefaultCellTile);
+            }
+            
+            _tilemap.SetTile(tilePosition, _gameDataSo.BoomDeadCellTile);
+            Debug.Log("Loss Game");
+        }
     }
 }
