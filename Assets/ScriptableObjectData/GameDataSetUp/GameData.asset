@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38882af4f059419985666d2dc1144b06, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  cellNumber: 1000
-  boomNumber: 1000
-  upCellTile: {fileID: 11400000, guid: e10d653223ae1bd49bd135101260d2da, type: 2}
-  downCellTile: {fileID: 11400000, guid: 6809b43624d98d44d9cf4983c0901364, type: 2}
-  boomDeadCellTile: {fileID: 11400000, guid: 2848286e0b26e9c4b967ec93f220117f, type: 2}
+  WidthCellNumber: 9
+  HeightCellNumber: 9
+  BoomNumber: 10
+  UpCellTile: {fileID: 11400000, guid: e10d653223ae1bd49bd135101260d2da, type: 2}
+  DownCellTile: {fileID: 11400000, guid: 6809b43624d98d44d9cf4983c0901364, type: 2}
+  FlagCellTile: {fileID: 11400000, guid: 267195f2e0263e541bac281ac202466a, type: 2}
+  BoomDeadCellTile: {fileID: 11400000, guid: 2848286e0b26e9c4b967ec93f220117f, type: 2}
+  BoomDefaultCellTile: {fileID: 11400000, guid: dc4a43bf87fd1954cb334452f4418e69, type: 2}
+  OneCellTile: {fileID: 11400000, guid: 76399f996c2448645a71d04981af32ea, type: 2}
+  TwoCellTile: {fileID: 11400000, guid: 29d12e5c82613a745aa9b0f6f382389c, type: 2}
+  ThreeCellTile: {fileID: 11400000, guid: 291550a85b4ad5141b282cbf977116a3, type: 2}
+  FourCellTile: {fileID: 11400000, guid: be84048b0a6b557479af75915cd98389, type: 2}
+  FiveCellTile: {fileID: 11400000, guid: a4a850c20fb99f049846c2602344ce1f, type: 2}
+  SixCellTile: {fileID: 11400000, guid: ac0f7e3218b5578498af69137c97cd47, type: 2}
+  SevenCellTile: {fileID: 11400000, guid: eaad2c26725cfa7419651201515d7f90, type: 2}
+  EightCellTile: {fileID: 11400000, guid: 887eea6cddcfa3049be21ca19c71d8d9, type: 2}

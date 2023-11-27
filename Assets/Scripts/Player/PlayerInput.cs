@@ -5,7 +5,7 @@ namespace DefaultNamespace.Player
 {
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private MyGrid _myGrid;
+        [SerializeField] private MyGrid_2 _myGrid;
         
         private void LateUpdate() => HandlePlayerAction();
 
@@ -14,7 +14,7 @@ namespace DefaultNamespace.Player
             if (InputManager.Instance.IsLeftMouseDown)
             {
                 Vector3 mouseWorldPos = InputManager.Instance.GetMousePositionInWorld();
-                _myGrid.DoLogicAtWorldPosition(mouseWorldPos);
+                _myGrid.UpdateTileAtWorldPosition(mouseWorldPos);
             }
             
             if (InputManager.Instance.IsRightMouseDown)

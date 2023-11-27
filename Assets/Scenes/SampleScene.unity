@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -234,11 +235,22 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1126943298}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9534f8b32a45b0846ff426253060dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &996208678
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,50 +296,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1126943297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1126943298}
-  - component: {fileID: 1126943299}
-  m_Layer: 0
-  m_Name: Setup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1126943298
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126943297}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 519420032}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1126943299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126943297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f9534f8b32a45b0846ff426253060dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1292703366
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,8 +456,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657049187}
-  - component: {fileID: 1657049188}
   - component: {fileID: 1657049186}
+  - component: {fileID: 1657049189}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -525,7 +493,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1657049188
+--- !u!114 &1657049189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -534,22 +502,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1657049185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a16ae90739ca4226af0a0ca7d551750e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9348e1dd5021447fa7baf9ee9d060321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upCellTile: {fileID: 11400000, guid: e10d653223ae1bd49bd135101260d2da, type: 2}
-  _downCellTile: {fileID: 11400000, guid: 6809b43624d98d44d9cf4983c0901364, type: 2}
-  _flagCellTile: {fileID: 11400000, guid: 267195f2e0263e541bac281ac202466a, type: 2}
-  _boomDeadCellTile: {fileID: 11400000, guid: 2848286e0b26e9c4b967ec93f220117f, type: 2}
-  _boomDefaultCellTile: {fileID: 11400000, guid: dc4a43bf87fd1954cb334452f4418e69, type: 2}
-  _oneCellTile: {fileID: 11400000, guid: 76399f996c2448645a71d04981af32ea, type: 2}
-  _twoCellTile: {fileID: 11400000, guid: 29d12e5c82613a745aa9b0f6f382389c, type: 2}
-  _threeCellTile: {fileID: 11400000, guid: 291550a85b4ad5141b282cbf977116a3, type: 2}
-  _fourCellTile: {fileID: 11400000, guid: be84048b0a6b557479af75915cd98389, type: 2}
-  _fiveCellTile: {fileID: 11400000, guid: a4a850c20fb99f049846c2602344ce1f, type: 2}
-  _sixCellTile: {fileID: 11400000, guid: ac0f7e3218b5578498af69137c97cd47, type: 2}
-  _sevenCellTile: {fileID: 11400000, guid: eaad2c26725cfa7419651201515d7f90, type: 2}
-  _eightCellTile: {fileID: 11400000, guid: 887eea6cddcfa3049be21ca19c71d8d9, type: 2}
 --- !u!1 &1925177851
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03c48b758cd4301b5f832ed970c7576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _myGrid: {fileID: 1657049188}
+  _myGrid: {fileID: 1657049189}
 --- !u!4 &1925177853
 Transform:
   m_ObjectHideFlags: 0

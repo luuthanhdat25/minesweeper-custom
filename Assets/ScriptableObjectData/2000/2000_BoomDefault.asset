@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c453da4fb904e8d98512ceb92a3a8df, type: 3}
   m_Name: 2000_BoomDefault
   m_EditorClassIdentifier: 
-  sprite: {fileID: -463400504, guid: efaac42dca8a2a2469e8755be64a8a61, type: 3}
+  Sprite: {fileID: -463400504, guid: efaac42dca8a2a2469e8755be64a8a61, type: 3}

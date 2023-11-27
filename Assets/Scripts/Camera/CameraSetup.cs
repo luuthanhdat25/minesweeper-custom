@@ -6,30 +6,24 @@ namespace CameraNameSpace
 {
     public class CameraSetup : MonoBehaviour
     {
-        private Transform _cameraTransform;
         private Camera _camera;
 
         private void Start()
         {
-            SetUpProperty();
+            _camera = GetComponent<Camera>();
             MoveCameraToMiddleOfGrid();
-            ZoomFieldOfView();
-        }
-
-        private void SetUpProperty()
-        {
-            _camera = Camera.main;
-            _cameraTransform = transform.parent;
+            ZoomFieldOfViewByCellSize();
         }
         
         private void MoveCameraToMiddleOfGrid()
         {
-            float middleValue = (float)GameManager.Instance.GameDataSo.cellNumber / 2;
-            Vector3 newCameraPosition = new Vector3(middleValue, middleValue, _cameraTransform.position.z);
-            _cameraTransform.position = newCameraPosition;
+            float middleValueX = (float)GameManager.Instance.GameDataSo.WidthCellNumber / 2;
+            float middleValueY = (float)GameManager.Instance.GameDataSo.HeightCellNumber / 2;
+            Vector3 newCameraPosition = new Vector3(middleValueX, middleValueY, transform.position.z);
+            transform.position = newCameraPosition;
         }
 
-        private void ZoomFieldOfView()
+        private void ZoomFieldOfViewByCellSize()
         {
             
         }

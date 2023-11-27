@@ -3,13 +3,24 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(fileName = "GameData", menuName = "GameData", order = 0)]
     public class GameDataSO : ScriptableObject
     {
-        public int cellNumber;
-        public int boomNumber;
-        public TileSO upCellTile;
-        public TileSO downCellTile;
-        public TileSO boomDeadCellTile;
+        public int WidthCellNumber;
+        public int HeightCellNumber;
+        public int BoomNumber;
+        public TileSO UpCellTile;
+        public TileSO DownCellTile;
+        public TileSO FlagCellTile;
+        public TileSO BoomDeadCellTile;
+        public TileSO BoomDefaultCellTile;
+        public TileSO OneCellTile;
+        public TileSO TwoCellTile;
+        public TileSO ThreeCellTile;
+        public TileSO FourCellTile;
+        public TileSO FiveCellTile;
+        public TileSO SixCellTile;
+        public TileSO SevenCellTile;
+        public TileSO EightCellTile;
+
     }
 }

@@ -4,7 +4,17 @@ namespace Grid.Tilemap
     public enum TileType
     {
         UpCell,
-        DowCell,
+        DownCell,
+        FlagCell,
         BoomDeadCell,
+        BoomDefaultCell,
+        OneCell,
+        TwoCell,
+        ThreeCell,
+        FourCell,
+        FiveCell,
+        SixCell,
+        SevenCell,
+        EightCell
     }
 }
