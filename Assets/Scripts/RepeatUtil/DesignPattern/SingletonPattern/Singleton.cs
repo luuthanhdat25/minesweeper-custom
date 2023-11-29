@@ -24,7 +24,7 @@ namespace RepeatUtil.DesignPattern.SingletonPattern
 
         private static T SetUpInstance()
         {
-            instance = (T)FindObjectOfType(typeof(T));
+            instance = (T)FindFirstObjectByType(typeof(T));
             if (instance != null) return instance;
             
             GameObject gameObject = new GameObject();

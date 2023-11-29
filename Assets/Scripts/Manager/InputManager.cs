@@ -8,9 +8,11 @@ namespace DefaultNamespace
         private Camera _camera;
         private bool _isLeftMouseDown;
         private bool _isRightMouseDown;
+        private float _mouseScrollWheelY;
 
         public bool IsLeftMouseDown => _isLeftMouseDown;
         public bool IsRightMouseDown => _isRightMouseDown;
+        public float MouseScollWheelY => _mouseScrollWheelY;
         
         protected override void Awake()
         {
@@ -24,12 +26,11 @@ namespace DefaultNamespace
         {
             _isLeftMouseDown = Input.GetMouseButtonDown(0);
             _isRightMouseDown = Input.GetMouseButtonDown(1);
+            _mouseScrollWheelY = Input.GetAxis("Mouse ScrollWheel");
         }
         
-        public Vector3 GetMousePositionInWorld()
-        {
-            Vector3 mousePositionInScreen = Input.mousePosition;
-            return _camera.ScreenToWorldPoint(mousePositionInScreen);
-        }
+        public Vector3 GetMousePositionInWorld() => _camera.ScreenToWorldPoint(GetMousePositionInScreen());
+
+        public Vector3 GetMousePositionInScreen() => Input.mousePosition;
     }
 }
