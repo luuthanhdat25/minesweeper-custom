@@ -1,3 +1,4 @@
+using System;
 using RepeatUtil.DesignPattern.SingletonPattern;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace DefaultNamespace
         public bool IsRightMouseDown => _isRightMouseDown;
         public float MouseScollWheelY => _mouseScrollWheelY;
         
+        public event EventHandler OnPauseAction;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -27,6 +30,8 @@ namespace DefaultNamespace
             _isLeftMouseDown = Input.GetMouseButtonDown(0);
             _isRightMouseDown = Input.GetMouseButtonDown(1);
             _mouseScrollWheelY = Input.GetAxis("Mouse ScrollWheel");
+            if(Input.GetKeyDown(KeyCode.Escape)) 
+                OnPauseAction?.Invoke(this, EventArgs.Empty);
         }
         
         public Vector3 GetMousePositionInWorld() => _camera.ScreenToWorldPoint(GetMousePositionInScreen());

@@ -11,6 +11,7 @@ namespace DefaultNamespace.Player
 
         private void HandlePlayerAction()
         {
+            if (GameManager.Instance.IsPauseGame()) return;
             if (InputManager.Instance.IsLeftMouseDown)
             {
                 Vector3 mouseWorldPos = InputManager.Instance.GetMousePositionInWorld();

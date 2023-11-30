@@ -280,6 +280,7 @@ namespace Grid.Tilemap
                 }
                 
                 _tilemap.SetTile(tilePosition, _gameDataSo.TileThemeSo.GetBoomDeadCellTileBaseData());
+                GameManager.Instance.GameOver();
                 Debug.Log("Loss Game");
             }
         #endregion

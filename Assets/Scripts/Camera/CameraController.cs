@@ -41,7 +41,8 @@ namespace CameraNameSpace
         public void SetCameraOrthographicSize(float size) => _camera.orthographicSize = size;
         
         public float GetCameraOrthographicSize() => _camera.orthographicSize;
-
-        public bool IsCameraOrthographicMaxSize() => Mathf.Approximately(_camera.orthographicSize,_maxSizeCamera);
+        
+        public bool IsCameraOverPosition(Vector3 moveVector) 
+            => Vector3.Distance(transform.position + moveVector, _startCameraPosition) > _maxSizeCamera/2;
     }
 }

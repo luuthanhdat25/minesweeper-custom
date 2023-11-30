@@ -15,8 +15,8 @@ namespace CameraNameSpace
         private Vector3 _focusPosition;
         private Vector3 _focusPositionInScreen;
 
-        private int MIN_ZOOM_IN_SIZE_CAMERA = 2;
-        private float FOCUS_RANGE = 5f;
+        private byte MIN_ZOOM_IN_SIZE_CAMERA = 2;
+        private byte FOCUS_RANGE = 10;
         
         protected override void LoadComponents()
         {
@@ -25,10 +25,11 @@ namespace CameraNameSpace
             _cameraController = transform.parent.GetComponent<CameraController>();
         }
 
-        private void LateUpdate() => HandleZoomAndMove();
+        private void LateUpdate() => HandleZoom();
 
-        private void HandleZoomAndMove()
+        private void HandleZoom()
         {
+            if (GameManager.Instance.IsPauseGame()) return;
             float mouseScrollYAxis = InputManager.Instance.MouseScollWheelY;
             if (Mathf.Approximately(mouseScrollYAxis, 0)) return;
             
@@ -36,7 +37,7 @@ namespace CameraNameSpace
             float newOrthographicSize = GetNewOrthographicSizeWithMouseScroll(mouseScrollYAxis, currentOrthographicSize);
             bool isZoomIn = newOrthographicSize < currentOrthographicSize;
             
-            MoveCameraToTargetPosition(isZoomIn);
+            MoveCameraToTargetZoomPosition(isZoomIn, newOrthographicSize);
             SetNewCameraOrthographicSize(newOrthographicSize);
         }
         
@@ -50,7 +51,7 @@ namespace CameraNameSpace
                 _lerpZoomInValue * Time.deltaTime);
         }
 
-        private void MoveCameraToTargetPosition(bool isZoomIn)
+        private void MoveCameraToTargetZoomPosition(bool isZoomIn, float newOrthographicSize)
         {
             if (isZoomIn) {
                 UpdateFocusPosition();
@@ -58,7 +59,8 @@ namespace CameraNameSpace
             }
             else {
                 _isZoomInState = false;
-                CameraMove(_cameraController.StartCameraPosition, _lerpFlowMouseSpeedOut);
+                if(Mathf.Approximately(newOrthographicSize, _cameraController.MaxSizeCamera))
+                    CameraMove(_cameraController.StartCameraPosition, _lerpFlowMouseSpeedOut);
             }
         }
 
