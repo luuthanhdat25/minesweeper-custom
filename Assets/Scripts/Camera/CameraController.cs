@@ -24,7 +24,7 @@ namespace CameraNameSpace
         private void Start()
         {
             GameDataSO gameDataSo = GameManager.Instance.GameDataSo;
-            _maxSizeCamera = Math.Max(gameDataSo.HeightCellNumber, gameDataSo.WidthCellNumber);
+            _maxSizeCamera = Math.Max(gameDataSo.HeightCellNumber, gameDataSo.WidthCellNumber) * 3f/ 4f;
             MoveCameraToMiddleOfGrid();
             SetCameraOrthographicSize(_maxSizeCamera);
         }

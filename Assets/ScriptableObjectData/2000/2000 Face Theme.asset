@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8c24b744dd4ddbae9cdd47727ed399, type: 3}
+  m_Name: 2000 Face Theme
+  m_EditorClassIdentifier: 
+  Smiles: {fileID: -928402020, guid: 18c9a09b8521db547bc7625202724089, type: 3}
+  Wow: {fileID: -1234233974, guid: 18c9a09b8521db547bc7625202724089, type: 3}
+  Cool: {fileID: 2000538659, guid: 18c9a09b8521db547bc7625202724089, type: 3}
+  Sad: {fileID: 1897018316, guid: 18c9a09b8521db547bc7625202724089, type: 3}

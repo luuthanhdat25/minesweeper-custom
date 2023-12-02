@@ -12,6 +12,7 @@ namespace DefaultNamespace
         public event EventHandler OnGamePaused;
         public event EventHandler OnGameUnpaused;
         public event EventHandler OnGameOver;
+        public event EventHandler OneGameWin;
         
         private enum State
         {
@@ -33,6 +34,8 @@ namespace DefaultNamespace
 
         public void TogglePauseGame()
         {
+            if (IsGameOver()) return;
+            
             if (IsPauseGame()) state = State.GamePlaying;
             else state = State.PauseGame;
             
@@ -41,6 +44,10 @@ namespace DefaultNamespace
         }
 
         public bool IsPauseGame() => state == State.PauseGame;
+        
+        public bool IsGamePlaying() => state == State.GamePlaying;
+        
+        public bool IsGameOver() => state == State.GameOver;
 
         public void GameOver()
         {

@@ -1,13 +1,12 @@
-using Grid.Tilemap;
+using Grid;
+using UI;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class GameDataSO : ScriptableObject
 {
-    public class GameDataSO : ScriptableObject
-    {
-        public int WidthCellNumber;
-        public int HeightCellNumber;
-        public int BoomNumber;
-        public TileThemeSO TileThemeSo;
-    }
+    public int WidthCellNumber;
+    public int HeightCellNumber;
+    public int BoomNumber;
+    public TileThemeSO TileThemeSo;
+    public FaceThemeSO FaceThemeSo;
 }

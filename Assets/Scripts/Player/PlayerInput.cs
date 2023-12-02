@@ -1,28 +1,26 @@
-using Grid.Tilemap;
+using DefaultNamespace;
+using Grid;
 using UnityEngine;
 
-namespace DefaultNamespace.Player
+namespace Player
 {
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private MyGrid_2 _myGrid;
+        [SerializeField] private MyGrid _myGrid;
         
         private void LateUpdate() => HandlePlayerAction();
 
         private void HandlePlayerAction()
         {
-            if (GameManager.Instance.IsPauseGame()) return;
+            if (!GameManager.Instance.IsGamePlaying()) return;
+            
             if (InputManager.Instance.IsLeftMouseDown)
-            {
-                Vector3 mouseWorldPos = InputManager.Instance.GetMousePositionInWorld();
-                _myGrid.UpdateTileAtWorldPosition(mouseWorldPos);
-            }
+                _myGrid.UpdateTileAtWorldPosition(GetMouseWorldPosition());
             
             if (InputManager.Instance.IsRightMouseDown)
-            {
-                Vector3 mouseWorldPos = InputManager.Instance.GetMousePositionInWorld();
-                _myGrid.ToogleFlagCell(mouseWorldPos);
-            }
+                _myGrid.ToogleFlagCell(GetMouseWorldPosition());
         }
+        
+        private Vector3 GetMouseWorldPosition() => InputManager.Instance.GetMousePositionInWorld();
     }
 }

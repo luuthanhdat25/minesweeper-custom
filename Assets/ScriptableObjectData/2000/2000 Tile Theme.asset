@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 301e3ecc98ea465b84528939b57696d4, type: 3}
-  m_Name: 2000 Theme
+  m_Name: 2000 Tile Theme
   m_EditorClassIdentifier: 
   UpCellTile: {fileID: 1841428892, guid: efaac42dca8a2a2469e8755be64a8a61, type: 3}
   DownCellTile: {fileID: -1070631106, guid: efaac42dca8a2a2469e8755be64a8a61, type: 3}

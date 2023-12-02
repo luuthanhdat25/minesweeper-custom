@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Grid.Tilemap
+namespace Grid
 {
-    [CreateAssetMenu(fileName = "New Theme", menuName = "Tile theme", order = 0)]
+    [CreateAssetMenu(fileName = "New Tile Theme", menuName = "Tile theme", order = 0)]
     public class TileThemeSO: ScriptableObject
     {
         [SerializeField] private Sprite UpCellTile;
@@ -26,7 +25,6 @@ namespace Grid.Tilemap
 
         public void Awake()
         {
-            Debug.Log("Awake");
             _tileBaseDataDictionary = new Dictionary<Sprite, TileSO>();
 
             AddTileBaseData(UpCellTile);

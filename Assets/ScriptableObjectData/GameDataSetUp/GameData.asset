@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38882af4f059419985666d2dc1144b06, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  WidthCellNumber: 9
-  HeightCellNumber: 9
-  BoomNumber: 10
+  WidthCellNumber: 500
+  HeightCellNumber: 500
+  BoomNumber: 25000
   TileThemeSo: {fileID: 11400000, guid: 8388d3c676c1e394a818a83ec26aabca, type: 2}
+  FaceThemeSo: {fileID: 11400000, guid: 21243196036d90243b03ca3b57ead006, type: 2}

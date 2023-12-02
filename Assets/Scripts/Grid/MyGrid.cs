@@ -1,264 +1,293 @@
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using DefaultNamespace;
+using RepeatUtil.DesignPattern.SingletonPattern;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Debug = UnityEngine.Debug;
 
-namespace Grid.Tilemap
+namespace Grid
 {
-    public class MyGrid: RepeatMonoBehaviour
+    public class MyGrid : SingletonDestroyOnLoad<MyGrid>
     {
-        // private UnityEngine.Tilemaps.Tilemap _tilemap;
-        // private int _cellNumber;
-        // private Dictionary<int, TileSO> _numberCellDictionary;
-        // [SerializeField] private TileSO _upCellTile;
-        // [SerializeField] private TileSO _downCellTile;
-        // [SerializeField] private TileSO _flagCellTile;
-        // [SerializeField] private TileSO _boomDeadCellTile;
-        // [SerializeField] private TileSO _boomDefaultCellTile;
-        // [SerializeField] private TileSO _oneCellTile;
-        // [SerializeField] private TileSO _twoCellTile;
-        // [SerializeField] private TileSO _threeCellTile;
-        // [SerializeField] private TileSO _fourCellTile;
-        // [SerializeField] private TileSO _fiveCellTile;
-        // [SerializeField] private TileSO _sixCellTile;
-        // [SerializeField] private TileSO _sevenCellTile;
-        // [SerializeField] private TileSO _eightCellTile;
-        // private bool[,] _boomMatrix;
-        // private bool firstSafe = false;
-        //
-        // public UnityEngine.Tilemaps.Tilemap Tilemap => _tilemap; 
-        //
-        // protected override void LoadComponents()
-        // {
-        //     base.LoadComponents();
-        //     if (_tilemap != null) return;
-        //     _tilemap = transform.GetComponentInChildren<UnityEngine.Tilemaps.Tilemap>();
-        // }
-        //
-        // private void Start()
-        // {
-        //     Stopwatch stopwatch = new Stopwatch();
-        //     stopwatch.Start();
-        //     _cellNumber = GameManager.Instance.GameDataSo.cellNumber;
-        //     //_upCellTile = GameManager.Instance.GameDataSo.upCellTile;
-        //     InstantiateNumberCellDictionary();
-        //     InstantiateBooms();
-        //     InstantiateCells();
-        //     stopwatch.Stop();
-        //     Debug.Log("Start: " + stopwatch.ElapsedMilliseconds);
-        // }
-        //
-        // private void InstantiateNumberCellDictionary()
-        // {
-        //     _numberCellDictionary = new Dictionary<int, TileSO>();
-        //     _numberCellDictionary.Add(0, _downCellTile);
-        //     _numberCellDictionary.Add(1, _oneCellTile);
-        //     _numberCellDictionary.Add(2, _twoCellTile);
-        //     _numberCellDictionary.Add(3, _threeCellTile);
-        //     _numberCellDictionary.Add(4, _fourCellTile);
-        //     _numberCellDictionary.Add(5, _fiveCellTile);
-        //     _numberCellDictionary.Add(6, _sixCellTile);
-        //     _numberCellDictionary.Add(7, _sevenCellTile);
-        //     _numberCellDictionary.Add(8, _eightCellTile);
-        // }
-        //
-        // private void InstantiateBooms()
-        // {
-        //     int boomNumber = GameManager.Instance.GameDataSo.boomNumber;
-        //     int arraySize = _cellNumber * _cellNumber;
-        //     System.Random random = new System.Random();
-        //     bool[] boomIndexBools = new bool[arraySize];
-        //     int copyBoomNumber = boomNumber;
-        //     
-        //     for (int i = arraySize - 1; i >= 0; i--)
-        //     {
-        //         if (copyBoomNumber > 0) {
-        //             boomIndexBools[i] = true;
-        //             copyBoomNumber--;
-        //         }else break;
-        //     }
-        //     
-        //     for (int i = arraySize - 1; i > 0; i--)
-        //     {
-        //         int j = random.Next(0, i + 1);
-        //         (boomIndexBools[i], boomIndexBools[j]) = (boomIndexBools[j], boomIndexBools[i]);
-        //     }
-        //     
-        //     _boomMatrix = new bool[_cellNumber, _cellNumber];
-        //     copyBoomNumber = boomNumber;
-        //     for (int i = 0; i < _cellNumber * _cellNumber; i++)
-        //     {
-        //         if (copyBoomNumber > 0)
-        //         {
-        //             if (boomIndexBools[i])
-        //             {
-        //                 int y = i % _cellNumber;
-        //                 int x = (i - y) / _cellNumber;
-        //                 _boomMatrix[x, y] = true;
-        //                 //Tính toán cho các giá trị sung quanh luôn
-        //                 copyBoomNumber--;
-        //             }
-        //         }else break;
-        //     }
-        // }
-        //
-        // private void InstantiateCells()
-        // {
-        //     TileBase[] tiles = Enumerable.Repeat(_upCellTile, _cellNumber*_cellNumber).ToArray();
-        //     BoundsInt boundBox = new BoundsInt(0, 0, 0, _cellNumber, _cellNumber, 1);
-        //     _tilemap.SetTilesBlock(boundBox, tiles);
-        // }
-        //
-        // public Vector3Int GetCellPositionByWorldPosition(Vector3 worldPosition)
-        //     => this._tilemap.WorldToCell(worldPosition);
-        //
-        // public void SetTileAtTilePosition(Vector3Int tilePosition, TileSO newTile)
-        // {
-        //     _tilemap.SetTile(tilePosition, newTile);
-        // }
-        //
-        // public void ToogleFlagCell(Vector3 worldPosition)
-        // {
-        //     Vector3Int tilePosition = GetCellPositionByWorldPosition(worldPosition);
-        //     if (!IsTilePositionInRange(tilePosition)) return;
-        //     if (IsUpTile(tilePosition)) {
-        //         _tilemap.SetTile(tilePosition, _flagCellTile);
-        //     }else if (IsFlagTile(tilePosition)){
-        //         _tilemap.SetTile(tilePosition, _upCellTile);
-        //     }
-        // }
-        //
-        // private bool IsFlagTile(Vector3Int tilePosition) 
-        //     => _tilemap.GetTile(tilePosition) == _flagCellTile;
-        //
-        // public void DoLogicAtWorldPosition(Vector3 worldPosition)
-        // {
-        //     Vector3Int tilePosition = GetCellPositionByWorldPosition(worldPosition);
-        //     if (!IsTilePositionInRange(tilePosition)) return;
-        //     UpdateTile(tilePosition);
-        // }
-        //
-        // private bool IsTilePositionInRange(Vector3Int tilePosition)
-        // {
-        //     return tilePosition.x >= 0 && tilePosition.x < _cellNumber &&
-        //            tilePosition.y >= 0 && tilePosition.y < _cellNumber;
-        // }
-        //
-        // private void UpdateTile(Vector3Int tilePosition)
-        // {
-        //     if (!IsUpTile(tilePosition)) return;
-        //     
-        //     if (IsBoomTile(tilePosition))
-        //     {
-        //         if (!firstSafe)
-        //         {
-        //             for (int y = 0; y < _cellNumber; y++)
-        //             {
-        //                 for (int x = 0; x < _cellNumber; x++)
-        //                 {
-        //                     if (!_boomMatrix[x, y])
-        //                     { 
-        //                         _boomMatrix[x, y] = true;
-        //                         firstSafe = true;
-        //                         _boomMatrix[tilePosition.x, tilePosition.y] = false;
-        //                         FloodFill(tilePosition);
-        //                         Debug.Log("Safe");
-        //                         return;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //         else _tilemap.SetTile(tilePosition, _boomDeadCellTile);
-        //         //End Game
-        //     }
-        //     else
-        //     {
-        //         firstSafe = true;
-        //         FloodFill(tilePosition);
-        //     }
-        // }
-        //
-        // //Hashset
-        // private void FloodFill(Vector3Int tilePosition)
-        // {
-        //     Stopwatch stopwatch = new Stopwatch();
-        //     stopwatch.Start();
-        //     HashSet<int> cellVisited = new HashSet<int>();
-        //     Queue<Vector3Int> cellQueue = new Queue<Vector3Int>();
-        //     cellVisited.Add(GetIndexIntFromVector3Int(tilePosition));
-        //     cellQueue.Enqueue(tilePosition);
-        //     
-        //     while (cellQueue.Count != 0)
-        //     {
-        //         Vector3Int currentVertex = cellQueue.Dequeue();
-        //         TileSO currentTile = GetNumberBoomAroundTile(currentVertex);
-        //         _tilemap.SetTile(currentVertex, currentTile);
-        //         if (currentTile == _downCellTile)
-        //         {
-        //             // Right
-        //             if (currentVertex.x + 1 < _cellNumber)
-        //             {
-        //                 if (cellVisited.Add(GetIndexIntFromVector3Int(currentVertex + Vector3Int.right)))
-        //                     cellQueue.Enqueue(currentVertex + Vector3Int.right);
-        //             }
-        //             // Bottom
-        //             if (currentVertex.y - 1 >= 0)
-        //             {
-        //                 if (cellVisited.Add(GetIndexIntFromVector3Int(currentVertex + Vector3Int.down)))
-        //                     cellQueue.Enqueue(currentVertex + Vector3Int.down);
-        //             }
-        //             // Left
-        //             if (currentVertex.x - 1 >= 0)
-        //             {
-        //                 if (cellVisited.Add(GetIndexIntFromVector3Int(currentVertex + Vector3Int.left)))
-        //                     cellQueue.Enqueue(currentVertex + Vector3Int.left);
-        //             }
-        //             // Up
-        //             if (currentVertex.y + 1 < _cellNumber)
-        //             {
-        //                 if (cellVisited.Add(GetIndexIntFromVector3Int(currentVertex + Vector3Int.up)))
-        //                     cellQueue.Enqueue(currentVertex + Vector3Int.up);
-        //             }
-        //         }
-        //     }
-        //     stopwatch.Stop();
-        //     Debug.Log("Flood Fill: " + stopwatch.ElapsedMilliseconds);
-        // }
-        //
-        // private int GetIndexIntFromVector3Int(Vector3Int vector3Int) 
-        //     => vector3Int.x *_cellNumber + vector3Int.y;
-        //
-        // private bool IsUpTile(Vector3Int tilePosition) 
-        //     => _tilemap.GetTile(tilePosition) == _upCellTile;
-        //
-        // private bool IsBoomTile(Vector3Int tilePosition) 
-        //     => _boomMatrix[tilePosition.x, tilePosition.y];
-        //
-        // private TileSO GetNumberBoomAroundTile(Vector3Int tilePosition)
-        // {
-        //     int x = tilePosition.x, y = tilePosition.y;
-        //     int countBoom = 0;
-        //     Vector3Int travelVector3Int = new Vector3Int();
-        //     for (int i = x - 1; i <= x + 1; i++)
-        //     {
-        //         if(i >= _cellNumber || i < 0) continue;
-        //         for (int j = y - 1; j <= y + 1; j++)
-        //         {
-        //             if(j >= _cellNumber || j < 0) continue;
-        //             if(i == x && j == y) continue;
-        //             
-        //             travelVector3Int.Set(i, j, 0);
-        //             if (!IsUpTile(travelVector3Int) && !IsFlagTile(travelVector3Int))continue;
-        //             
-        //             if (IsBoomTile(i, j)) countBoom++;
-        //         }
-        //     }
-        //     return _numberCellDictionary[countBoom];
-        // }
-        //
-        // private bool IsBoomTile(int x, int y) => _boomMatrix[x, y];
+        public event EventHandler OnChooseTileAction;
+        
+        private Tilemap _tilemap;
+        private int _widthCellNumber, _heightCellNumber;
+        private Dictionary<byte, TileSO> _numberCellDictionary = new Dictionary<byte, TileSO>();
+        private GameDataSO _gameDataSo;
+        private byte[,] _valueMatrix;
+        private int[] _boomIndexArray;
+        private bool firstSafe = false;
+        //Constants
+        private const byte DOWN_VALUE = 0;
+        private const byte UP_VALUE = 10;
+        private const byte FLAG_VALUE = 20;
+        private const byte BOOM_VALUE = 30;
+        private static readonly Vector3Int[] directionVisites 
+            = {
+                Vector3Int.right, 
+                Vector3Int.down, 
+                Vector3Int.left, 
+                Vector3Int.up
+            };
+
+        #region Instance Matrix
+            protected override void LoadComponents()
+            {
+                base.LoadComponents();
+                if (_tilemap != null) return;
+                _tilemap = transform.GetComponentInChildren<Tilemap>();
+            }
+
+            private void Start()
+            {
+                _gameDataSo = GameManager.Instance.GameDataSo;
+                _gameDataSo.TileThemeSo.Awake();
+                _widthCellNumber = _gameDataSo.WidthCellNumber;
+                _heightCellNumber = _gameDataSo.HeightCellNumber;
+                InstantiateNumberCellDictionary();
+                RandomBoomAndCalculateCellValue();
+                InstantiateCells();
+            }
+
+            private void InstantiateNumberCellDictionary()
+            {
+                var tileThemeSo = _gameDataSo.TileThemeSo;
+                _numberCellDictionary = new Dictionary<byte, TileSO>()
+                {
+                    { 0, tileThemeSo.GetDownCellTileBaseData() },
+                    { 1, tileThemeSo.GetOneCellTileBaseData() },
+                    { 2, tileThemeSo.GetTwoCellTileBaseData() },
+                    { 3, tileThemeSo.GetThreeCellTileBaseData() },
+                    { 4, tileThemeSo.GetFourCellTileBaseData() },
+                    { 5, tileThemeSo.GetFiveCellTileBaseData() },
+                    { 6, tileThemeSo.GetSixCellTileBaseData() },
+                    { 7, tileThemeSo.GetSevenCellTileBaseData() },
+                    { 8, tileThemeSo.GetEightCellTileBaseData() }
+                };
+            }
+
+            private void RandomBoomAndCalculateCellValue()
+            {
+                int arraySize = _widthCellNumber * _heightCellNumber;
+                int boomNumber = _gameDataSo.BoomNumber; 
+                byte[] boomIndexBools = new byte[arraySize];
+                _boomIndexArray = new int[boomNumber];
+                _valueMatrix = new byte[_widthCellNumber, _heightCellNumber];
+                
+                // Fisher-Yates Shuffle
+                for (int i = boomNumber, j = arraySize - 1; i > 0; i--, j--)
+                    boomIndexBools[j] = BOOM_VALUE;
+
+                System.Random random = new System.Random();
+                for (int i = arraySize - 1; i > 0; i--) {
+                    int randomNumber = random.Next(0, i + 1);
+                    if(randomNumber != i){
+                        (boomIndexBools[i], boomIndexBools[randomNumber]) 
+                        = (boomIndexBools[randomNumber], boomIndexBools[i]);
+                    }
+                }
+                
+                //Calculate cell values of matrix
+                int boomIndex = 0;
+                for (int i = 0; i < arraySize; i++)
+                {
+                    if (boomNumber <= 0) break;
+                    if (boomIndexBools[i] != BOOM_VALUE) continue;
+                    _boomIndexArray[boomIndex++] = i;
+                    int x = i % _widthCellNumber;
+                    int y = (i - x) / _widthCellNumber;
+                    _valueMatrix[x, y] = BOOM_VALUE;
+
+                    for (int t = x - 1; t <= x + 1; t++) {
+                        if (t < 0 || t >= _widthCellNumber) continue;
+                        for (int z = y - 1; z <= y + 1; z++) {
+                            if (z < 0 || z >= _heightCellNumber) continue;
+                            if (t == x && z == y) continue;
+                            if (_valueMatrix[t, z] != BOOM_VALUE)
+                                _valueMatrix[t, z]++;
+                        }
+                    }
+                    boomNumber--;
+                }
+            }
+
+            private bool IsBoom(int x, int y) => _valueMatrix[x,y] >= BOOM_VALUE;
+
+            private void InstantiateCells()
+            {
+                TileBase[] tiles = new TileBase[_widthCellNumber * _heightCellNumber];
+                TileBase upTile = _gameDataSo.TileThemeSo.GetUpCellTileBaseData();
+
+                for (int i = 0; i < tiles.Length; i++)
+                    tiles[i] = upTile;
+
+                BoundsInt boundBox 
+                    = new BoundsInt(0, 0, 0, _widthCellNumber, _heightCellNumber, 1);
+                _tilemap.SetTilesBlock(boundBox, tiles);
+            }
+        #endregion
+
+        #region Update Tile With FloodFill
+            public void UpdateTileAtWorldPosition(Vector3 worldPosition)
+            {
+                Vector3Int tilePosition = GetCellPositionByWorldPosition(worldPosition);
+                if (!IsTilePositionInRange(tilePosition)) return;
+                UpdateTile(tilePosition);
+            }
+            
+            public Vector3Int GetCellPositionByWorldPosition(Vector3 worldPosition)
+                => this._tilemap.WorldToCell(worldPosition);
+            
+            private bool IsTilePositionInRange(Vector3Int tilePosition)
+            {
+                return tilePosition.x >= 0 && tilePosition.x < _widthCellNumber &&
+                       tilePosition.y >= 0 && tilePosition.y < _heightCellNumber;
+            }
+            
+            private void UpdateTile(Vector3Int tilePosition)
+            {
+                if (!IsUpTile(tilePosition)) return;
+
+                if (!IsBoom(tilePosition.x, tilePosition.y)) {
+                    firstSafe = true;
+                    FloodFill(tilePosition);
+                    OnChooseTileAction?.Invoke(this, EventArgs.Empty);
+                }
+                else if (!firstSafe) {
+                    firstSafe = true;
+                    FindSafeCellAndSwap(tilePosition);
+                    OnChooseTileAction?.Invoke(this, EventArgs.Empty);
+                }
+                else {
+                    ActivateAllBoom(tilePosition);
+                }
+            }
+            
+            private bool IsUpTile(Vector3Int tilePosition) 
+                => _tilemap.GetTile(tilePosition) == _gameDataSo.TileThemeSo.GetUpCellTileBaseData();
+            
+            private void FloodFill(Vector3Int tilePosition)
+            {
+                if (!IsDownTile(GetNumberBoomAroundTile(tilePosition)))
+                {
+                    _tilemap.SetTile(tilePosition, GetNumberBoomAroundTile(tilePosition));
+                    return;
+                }
+                
+                HashSet<int> cellVisited = new HashSet<int>();
+                Queue<Vector3Int> cellQueue = new Queue<Vector3Int>();
+                cellVisited.Add(GetIndexIntFromVector3Int(tilePosition));
+                cellQueue.Enqueue(tilePosition);
+                
+                while (cellQueue.Count != 0)
+                {
+                    Vector3Int currentVertex = cellQueue.Dequeue();
+                    TileSO currentTile = GetNumberBoomAroundTile(currentVertex);
+                    _tilemap.SetTile(currentVertex, currentTile);
+                    
+                    if (IsDownTile(currentTile)) EnqueueAdjacentTiles(currentVertex, cellVisited, cellQueue);
+                }
+            }
+            
+            private bool IsDownTile(TileSO currentTile) => currentTile == _gameDataSo.TileThemeSo.GetDownCellTileBaseData();
+
+            private void EnqueueAdjacentTiles(
+                Vector3Int currentVertex, 
+                HashSet<int> cellVisited,
+                Queue<Vector3Int> cellQueue)
+            {
+                foreach (Vector3Int direction in directionVisites) {
+                    Vector3Int adjacentTile = currentVertex + direction;
+                    if (IsTilePositionInRange(adjacentTile)
+                        && cellVisited.Add(GetIndexIntFromVector3Int(adjacentTile))) 
+                    {
+                        cellQueue.Enqueue(adjacentTile);
+                    }
+                }
+            }
+
+            private int GetIndexIntFromVector3Int(Vector3Int vector3Int) 
+                => vector3Int.x * _widthCellNumber + vector3Int.y;
+            
+            private TileSO GetNumberBoomAroundTile(Vector3Int tilePosition) 
+                => _numberCellDictionary[_valueMatrix[tilePosition.x, tilePosition.y]];
+            
+            private void FindSafeCellAndSwap(Vector3Int tilePosition)
+            {
+                for (int y = 0; y < _heightCellNumber; y++) {
+                    for (int x = 0; x < _widthCellNumber; x++) {
+                        if (!IsBoom(x, y))
+                        {
+                            //Switch position to none boom cell
+                            //Add boom add plus value to around cell
+                            _valueMatrix[x, y] = BOOM_VALUE;
+                            for (int t = x - 1; t <= x + 1; t++) {
+                                if (t < 0 || t >= _widthCellNumber) continue;
+                                for (int z = y - 1; z <= y + 1; z++)
+                                {
+                                    if (z < 0 || z >= _heightCellNumber) continue;
+                                    if (t == x && z == y) continue;
+                                    if (_valueMatrix[t, z] != BOOM_VALUE)
+                                        _valueMatrix[t, z]++;
+                                }
+                            }
+
+                            //Remove boom and deduct value to around cell
+                            _valueMatrix[tilePosition.x, tilePosition.y] = 0;
+                            for (int t = tilePosition.x - 1; t <= tilePosition.x + 1; t++) {
+                                if (t < 0 || t >= _widthCellNumber) continue;
+                                for (int z = tilePosition.y - 1; z <= tilePosition.y + 1; z++) {
+                                    if (z < 0 || z >= _heightCellNumber) continue;
+                                    if (t == tilePosition.x && z == tilePosition.y) continue;
+                                    if (_valueMatrix[t, z] == BOOM_VALUE)
+                                        _valueMatrix[tilePosition.x, tilePosition.y]++;
+                                    else
+                                        _valueMatrix[t, z]--;
+                                }
+                            }
+
+                            FloodFill(tilePosition);
+                            Debug.Log("Safe");
+                            return;
+                        }
+                    }
+                }
+            }
+        #endregion
+        
+        #region Update Flage Cell
+            public void ToogleFlagCell(Vector3 worldPosition)
+            {
+                Vector3Int tilePosition = GetCellPositionByWorldPosition(worldPosition);
+                if (!IsTilePositionInRange(tilePosition)) return;
+                
+                OnChooseTileAction?.Invoke(this, EventArgs.Empty);
+                if (IsUpTile(tilePosition)) {
+                    _tilemap.SetTile(tilePosition, _gameDataSo.TileThemeSo.GetFlagCellTileBaseData());
+                }else if (IsFlagTile(tilePosition)){
+                    _tilemap.SetTile(tilePosition, _gameDataSo.TileThemeSo.GetUpCellTileBaseData());
+                }
+            }
+
+            private bool IsFlagTile(Vector3Int tilePosition)
+                => _tilemap.GetTile(tilePosition) == _gameDataSo.TileThemeSo.GetFlagCellTileBaseData();
+
+            private void ActivateAllBoom(Vector3Int tilePosition)
+            {
+                Vector3Int vectorTemp = tilePosition;
+                foreach (int index in _boomIndexArray)
+                {
+                    int x = index % _widthCellNumber;
+                    int y = (index - x) / _widthCellNumber;
+                    vectorTemp.Set(x, y, tilePosition.z);
+                    _tilemap.SetTile(vectorTemp, _gameDataSo.TileThemeSo.GetBoomDefaultCellTileBaseData());
+                }
+                
+                _tilemap.SetTile(tilePosition, _gameDataSo.TileThemeSo.GetBoomDeadCellTileBaseData());
+                GameManager.Instance.GameOver();
+                Debug.Log("Loss Game");
+            }
+        #endregion
     }
 }
