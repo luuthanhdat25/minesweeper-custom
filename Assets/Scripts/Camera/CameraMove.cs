@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using Manager;
 using UnityEngine;
 
 namespace CameraNameSpace

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e452ce4447334dd09290b85a64b3ee84, type: 3}
+  m_Name: 2000 Timer Theme
+  m_EditorClassIdentifier: 
+  NumberSpritesList:
+  - {fileID: -884055410, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: 235970464, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: -544119489, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: -1284748982, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: -396961851, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: 1030472537, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: 1950120256, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: 846167051, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: -1138171347, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}
+  - {fileID: -988537231, guid: 73c9a059d93468b45997b96aa372b1ec, type: 3}

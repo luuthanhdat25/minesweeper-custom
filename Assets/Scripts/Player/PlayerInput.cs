@@ -1,13 +1,17 @@
+using System;
 using DefaultNamespace;
 using Grid;
+using Manager;
 using UnityEngine;
 
 namespace Player
 {
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private MyGrid _myGrid;
-        
+        private MyGrid _myGrid;
+
+        private void Start() => _myGrid = MyGrid.Instance;
+
         private void LateUpdate() => HandlePlayerAction();
 
         private void HandlePlayerAction()

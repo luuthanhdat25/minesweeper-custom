@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using DefaultNamespace;
 using Grid;
+using Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,7 +28,6 @@ namespace UI
 
             MyGrid.Instance.OnChooseTileAction += MyGridOn_ChooseTileAction;
             GameManager.Instance.OnGameOver += GameManager_OnGameOver;
-            GameManager.Instance.OneGameWin += GameManager_OnGameWin;
         }
 
         private void SetStartUpFace()
@@ -44,11 +43,10 @@ namespace UI
             _faceImage.sprite = _faceThemeSo.Wow;
             yield return new WaitForSeconds(TIME_EMOITON);
             _faceImage.sprite = _faceThemeSo.Smiles;
+            if(GameManager.Instance.IsWinGame()) _faceImage.sprite = _faceThemeSo.Cool;
         }
         
         private void GameManager_OnGameOver(object sender, EventArgs e) => _faceImage.sprite = _faceThemeSo.Sad;
-        
-        private void GameManager_OnGameWin(object sender, EventArgs e) => _faceImage.sprite = _faceThemeSo.Cool;
 
         public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
